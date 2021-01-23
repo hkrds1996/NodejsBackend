@@ -9,7 +9,15 @@ const app = express();
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
-
+app.use('*',function(req,res,next){
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+    // res.setHeader("Access-Control-Max-Age", "3600");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    next();
+  });
+  
 //remote db
 mongoose.connect("mongodb+srv://"+process.env.MONGODB_Account+":"+process.env.MONGODB_DB_PASSPORT+"@cluster0.1mkpl.mongodb.net/"+process.env.MONGODB_DB+"?retryWrites=true&w=majority", {useNewUrlParser:true});
 
