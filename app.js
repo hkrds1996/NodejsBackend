@@ -79,8 +79,8 @@ app.route("/articles").get(function(req, res){
     });
 });
 
-app.route("/articles/:articleTitle").get(function(req, res){
-    Articles.findOne({title:req.params.articleTitle}, function(err, foundArticles){
+app.route("/articles/:id").get(function(req, res){
+    Articles.findOne({_id:req.params.id}, function(err, foundArticles){
         if(err){
             res.send(err);
         }else{
@@ -92,7 +92,7 @@ app.route("/articles/:articleTitle").get(function(req, res){
         }
     });
 }).post(function(req,res){
-    Articles.updateOne({title:req.params.articleTitle}, 
+    Articles.updateOne({_id:req.params.id}, 
         {
             title: req.body.title,
             content: req.body.content
@@ -106,7 +106,7 @@ app.route("/articles/:articleTitle").get(function(req, res){
             }
     });
 }).patch(function(req,res){
-    Articles.updateOne({title:req.params.articleTitle}, 
+    Articles.updateOne({_id:req.params.id}, 
         {$set: req.body},
         function(err){
             if(err){
